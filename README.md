@@ -44,4 +44,14 @@ public IEnumerable<Product> ProductGetAll()
        return _dapper.Query<Product>("SELECT * FROM PRODUCT");
     }            
 }
+
+[HttpPost]
+public void Create(Product product) 
+{
+    using (var _dapper = new SqlConnection(GetConnection()))
+    {
+       _dapper.Execute(@"INSERT INTO PRODUCT(NAME, PRICE) VALUES(@name, @price)", new { product.Name, product.Price });
+    }            
+}
+
 ```
